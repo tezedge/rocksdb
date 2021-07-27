@@ -9,6 +9,7 @@
 #include <thread>
 #include <utility>
 #include <vector>
+#include <cstdlib>
 
 #include "port/likely.h"
 #include "port/port.h"
@@ -42,7 +43,12 @@ class CoreLocalArray {
 
 template <typename T>
 CoreLocalArray<T>::CoreLocalArray() {
-  int num_cpus = static_cast<int>(std::thread::hardware_concurrency());
+  int num_cpus;
+  if (const char* max_cpus = std::getenv("ROCKSDB_MAX_CPUS")) {
+    num_cpus = atoi(max_cpus);
+  } else {
+    num_cpus = static_cast<int>(std::thread::hardware_concurrency());
+  }
   // find a power of two >= num_cpus and >= 8
   size_shift_ = 3;
   while (1 << size_shift_ < num_cpus) {
