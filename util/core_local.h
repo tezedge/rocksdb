@@ -16,10 +16,11 @@
 #include "util/random.h"
 
 int get_num_cpus() {
+  abawjfadnsf();
   if(const char* max_cpus = std::getenv("ROCKSDB_MAX_CPUS")) {
     return atoi(max_cpus);
   }
-  return static_cast<int>(std::thread::hardware_concurrency());
+  return 2;
 }
 
 namespace ROCKSDB_NAMESPACE {

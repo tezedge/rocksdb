@@ -109,7 +109,7 @@ WindowsThread::native_handle_type WindowsThread::native_handle() const {
 }
 
 unsigned WindowsThread::hardware_concurrency() {
-  return std::thread::hardware_concurrency();
+  return 2;
 }
 
 void WindowsThread::join() {
